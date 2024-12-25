@@ -18,7 +18,7 @@ export class DetailedRecipeComponent implements OnInit{
   currentRecipe: Recipe | null | 'not_found' = null
 
   private fetchRecipe() {
-    return this.http.get<Observable<string>>('https://recipe-book-406c3-default-rtdb.europe-west1.firebasedatabase.app/recipes.json')
+    return this.http.get<Observable<Recipe>>('https://recipe-book-406c3-default-rtdb.europe-west1.firebasedatabase.app/recipes.json')
   }
 
   ngOnInit() {
@@ -26,15 +26,10 @@ export class DetailedRecipeComponent implements OnInit{
       next: (params) => {
         const recipeFetch = this.fetchRecipe().subscribe({
           next: (recipies) => {
-            recipies.forEach((recipe) => {
-              if (JSON.parse(recipe).id == params.get('id')) {
-                this.currentRecipe = JSON.parse(recipe)
-                return
-              }
-              else {
-                this.currentRecipe = 'not_found'
-              }
-            })
+            const recipe = Object.values(recipies).find(
+              (recipe: Recipe) => recipe.id == params.get('id')
+            );
+            this.currentRecipe = recipe ? recipe : 'not_found'
           }
         })
 
