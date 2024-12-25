@@ -1,1 +1,25 @@
 <p>detailed-recipe works!</p>
+@if (currentRecipe == null) {
+    <div class="loader-container" [ngClass]="!currentRecipe ? 'loading' : ''">
+        <div class="multi-spinner-container">
+            <div class="multi-spinner">
+                <div class="multi-spinner">
+                    <div class="multi-spinner">
+                        <div class="multi-spinner">
+                            <div class="multi-spinner">
+                                <div class="multi-spinner">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@else if (currentRecipe == 'not_found') {
+    Recipe not found!
+}
+@else {
+    recipe id: {{ currentRecipe.id }}
+}
