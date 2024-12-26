@@ -1,12 +1,65 @@
 <header>
-    <a [routerLink]="['/']">Home</a>
-    @if (isAuthenticated) {
-        <a [routerLink]="['auth/admin']">Admin Panel</a>
-        <a [routerLink]="['/']" (click)="onLogout()">Logout</a>
-    }
-    @else {
-        <a [routerLink]="['/auth/login']">Login</a>
-    }
+    <a [routerLink]="['/']"><mat-icon>soup_kitchen</mat-icon>Home</a>
+    <section class="navigation">
+        <a (click)="openModal()"><mat-icon>add</mat-icon>Add new recipe</a>
+        @if (isAuthenticated) {
+            <a [routerLink]="['auth/admin']">Admin Panel</a>
+            <a [routerLink]="['/']" (click)="onLogout()">Logout</a>
+        }
+        @else {
+            <a [routerLink]="['/auth/login']">Login</a>
+        }
+    </section>
 </header>
-<button (click)="newRecipe()">New recipe test</button>
+<div id="recipe-modal" class="modal">
+    <div class="content">
+        <div class="header">
+            <h2>New Recipe:</h2>
+            <button mat-fab aria-label="Close new recipe modal" (click)="closeModal()">
+                <mat-icon>close</mat-icon>
+            </button>
+        </div>
+        <div class="new-recipe-alert" [ngClass]="{active: new_recipe_added}">
+            New Recipe Added Successfully!
+        </div>
+        <form class="recipe-form" [formGroup]="new_recipe_form" (submit)="newRecipe()">
+            <mat-form-field class="halfWidth">
+                <mat-label>Name</mat-label>
+                <input matInput type="text" formControlName="name" name="name">
+            </mat-form-field>
+            <mat-form-field class="halfWidth">
+                <mat-label>Portions</mat-label>
+                <input matInput type="text" formControlName="portions_count" name="portions_count">
+            </mat-form-field>
+            <mat-form-field class="halfWidth">
+                <mat-label>Preparation time</mat-label>
+                <input matInput type="text" formControlName="time_preparation" name="time_preparation">
+            </mat-form-field>
+            <mat-form-field class="halfWidth">
+                <mat-label>Cooking time</mat-label>
+                <input matInput type="text" formControlName="time_cooking" name="time_cooking">
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Ingerdients</mat-label>
+                <input matInput type="text" formControlName="ingredients" name="ingredients" placeholder="Separate ingredients with ;">
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Steps</mat-label>
+                <textarea matInput formControlName="steps" name="steps" placeholder="Separate steps with ;" rows="5"></textarea>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Categories</mat-label>
+                <input matInput type="text" formControlName="categories" name="categories" placeholder="Separate categories with ;">
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Photos</mat-label>
+                <input matInput type="text" formControlName="photos" name="photos" placeholder="Separate photos paths with ;">
+            </mat-form-field>
+            <button type="submit" mat-fab aria-label="Submit New Recipe Form">
+                <mat-icon>send</mat-icon>&nbsp;
+                Add New Recipe
+            </button>
+        </form>
+    </div>
+</div>
 <router-outlet />

@@ -10,11 +10,12 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { merge } from 'rxjs';
+import { AdminComponent } from "../admin/admin.component";
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, MatButton, MatIcon, RouterLink, MatFormFieldModule, MatInputModule],
+  imports: [ReactiveFormsModule, MatButton, MatIcon, RouterLink, MatFormFieldModule, MatInputModule, AdminComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -28,6 +29,7 @@ export class LoginComponent implements OnInit{
 
   errorMessage = signal('');
   hide = signal(true);
+  isAuthenticated = false
 
   form = new FormGroup({
     email: new FormControl('', {
@@ -44,8 +46,17 @@ export class LoginComponent implements OnInit{
         window.localStorage.setItem('saved-login-form', JSON.stringify({email: value.email}))
       }
     })
+    const userSubscription = this.authService.user.subscribe({
+      next: (user) => {
+        this.isAuthenticated = !!user
+        if (this.isAuthenticated) window.location.replace("/auth/admin")
+      }
+    })
 
-    this.destroyRef.onDestroy(() => subscription.unsubscribe())
+    this.destroyRef.onDestroy(() => {
+      subscription.unsubscribe()
+      userSubscription.unsubscribe()
+    })
   }
 
   onSubmit(){

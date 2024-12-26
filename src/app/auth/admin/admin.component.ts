@@ -1,12 +1,11 @@
 import { Component, DestroyRef, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
-import { RouterLink } from '@angular/router';
 import { LoginComponent } from '../login/login.component';
 
 @Component({
   selector: 'app-admin',
   standalone: true,
-  imports: [RouterLink, LoginComponent],
+  imports: [LoginComponent],
   templateUrl: './admin.component.html',
   styleUrl: './admin.component.scss'
 })
