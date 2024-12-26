@@ -87,7 +87,7 @@ header{
         }
     }
 }  
-.mobile-menu-list{
+.mobile-menu-list, .mobile-menu{
     display: none;
 }
 @media screen and (max-width: 1024px){
@@ -109,6 +109,9 @@ header{
         .halfWidth{
             width: 100% !important;
         }
+    }
+    .mobile-menu{
+        display: flex;
     }
     .mobile-menu-list{
         position: absolute;
