@@ -1,6 +1,6 @@
 <header>
     <a [routerLink]="['/']"><mat-icon>soup_kitchen</mat-icon>Home</a>
-    <section class="navigation">
+    <section class="navigation desktop">
         @if (isAuthenticated) {
             <a (click)="openModal()"><mat-icon>add</mat-icon>Add new recipe</a>
             <a [routerLink]="['auth/admin']">Admin Panel</a>
@@ -10,7 +10,20 @@
             <a [routerLink]="['/auth/login']">Login</a>
         }
     </section>
+    <button class="mobile-menu" mat-fab aria-label="Mobile menu toggle" (click)="toggleMobileMenu($event)">
+        <mat-icon>menu</mat-icon>
+    </button>
 </header>
+<div class="mobile-menu-list" [ngClass]="mobile_menu_opened ? 'active' : ''">
+    @if (isAuthenticated) {
+        <a (click)="openModal()"><mat-icon>add</mat-icon>Add new recipe</a>
+        <a [routerLink]="['auth/admin']">Admin Panel</a>
+        <a [routerLink]="['/']" (click)="onLogout()">Logout</a>
+    }
+    @else {
+        <a [routerLink]="['/auth/login']">Login</a>
+    }
+</div>
 @if (isAuthenticated) {
     <div id="recipe-modal" class="modal">
         <div class="content">

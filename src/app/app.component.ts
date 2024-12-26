@@ -27,6 +27,7 @@ export class AppComponent implements OnInit {
   recipes: Recipe[] = []
   next_id: number | null = null
   new_recipe_added: boolean = false
+  mobile_menu_opened: boolean = false 
 
   new_recipe_form = new FormGroup({
     name: new FormControl(''),
@@ -60,6 +61,10 @@ export class AppComponent implements OnInit {
         error: (err) => console.log(err)
       })
 
+    window.addEventListener("click", () => {
+      if (this.mobile_menu_opened) this.mobile_menu_opened = false
+    })
+
     this.destroyRef.onDestroy(() => {
       userSubscription.unsubscribe()
       recipesSubscription.unsubscribe()
@@ -76,6 +81,11 @@ export class AppComponent implements OnInit {
 
   closeModal() {
     document.querySelector("#recipe-modal")?.classList.remove("active")
+  }
+
+  toggleMobileMenu(event: Event) {
+    event.stopPropagation()
+    this.mobile_menu_opened = !this.mobile_menu_opened
   }
 
   newRecipe() {
