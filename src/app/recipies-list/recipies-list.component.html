@@ -17,6 +17,12 @@
     </div>
 }
 @else {
+    <div class="categories">
+        <h2>Filter by category:</h2>
+        @for (category of categories; track category){
+            <button mat-flat-button (click)="applyFilter(category)" [ngClass]="filters.includes(category) ? 'active' : ''">{{ category }}</button>
+        }
+    </div>
     @for (recipe of recipes; track recipe.id){
         <a class="recipe" [routerLink]="['/recipe', recipe.id]">
             <h3>{{ recipe.name }}</h3>
