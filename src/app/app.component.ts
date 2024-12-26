@@ -56,7 +56,7 @@ export class AppComponent implements OnInit {
           Object.values(data).forEach((recipe: Recipe) => this.recipes.push(recipe))
           this.next_id = this.findMaxId(this.recipes)+1
         },
-        complete: () => console.log(this.recipes),
+        // complete: () => console.log(this.recipes),
         error: (err) => console.log(err)
       })
 
@@ -82,9 +82,9 @@ export class AppComponent implements OnInit {
     this.http.post('https://recipe-book-406c3-default-rtdb.europe-west1.firebasedatabase.app/recipes.json', {
       id: this.next_id!.toString(), 
       name: this.new_recipe_form.value.name, 
-      time_preparation: this.new_recipe_form.value.time_preparation, 
-      time_cooking: this.new_recipe_form.value.time_cooking, 
-      portions_count: this.new_recipe_form.value.portions_count, 
+      time_preparation: this.new_recipe_form.value.time_preparation?.toString(), 
+      time_cooking: this.new_recipe_form.value.time_cooking?.toString(), 
+      portions_count: this.new_recipe_form.value.portions_count?.toString(), 
       ingredients: this.new_recipe_form.value.ingredients?.split(";").map(el => el.trim()), 
       steps: this.new_recipe_form.value.steps?.split(";").map(el => el.trim()), 
       categories: this.new_recipe_form.value.categories?.split(";").map(el => el.trim()), 
@@ -97,7 +97,10 @@ export class AppComponent implements OnInit {
         setTimeout(() => {
           this.new_recipe_added = false
         }, 3000);
-      }
+      },
+      complete: () => {setTimeout(() => {
+        window.location.reload()
+      }, 1000)}
     })
   }
 
