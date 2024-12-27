@@ -39,6 +39,7 @@ export class AppComponent implements OnInit {
     ingredients: new FormControl(''),
     steps: new FormControl(''),
     categories: new FormControl(''),
+    categories_bg: new FormControl(''),
     photos: new FormControl('')
   })
 
@@ -118,6 +119,7 @@ export class AppComponent implements OnInit {
       ingredients: this.new_recipe_form.value.ingredients?.split(";").map(el => el.trim()), 
       steps: this.new_recipe_form.value.steps?.split(";").map(el => el.trim()), 
       categories: this.new_recipe_form.value.categories?.split(";").map(el => el.trim()), 
+      categories_bg: this.new_recipe_form.value.categories_bg?.split(";").map(el => el.trim()),
       photos: this.new_recipe_form.value.photos?.split(";").map(el => el.trim()) 
     }).subscribe({
       next: (data) => {

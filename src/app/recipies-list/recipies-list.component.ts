@@ -27,8 +27,18 @@ export class RecipiesListComponent implements OnInit {
 
   ngOnInit() {
     this.locale = localStorage.getItem('locale')
-    document.querySelector("header")?.addEventListener("click", () => this.locale = localStorage.getItem('locale'))
-    document.querySelector(".mobile-menu-list")?.addEventListener("click", () => this.locale = localStorage.getItem('locale'))
+    document.querySelector("header")?.addEventListener("click", () => {
+      this.locale = localStorage.getItem('locale')
+      this.recipes = []
+      this.recipesLoaded = false
+      this.getAllRecipies()
+    })
+    document.querySelector(".mobile-menu-list")?.addEventListener("click", () => {
+      this.locale = localStorage.getItem('locale')
+      this.recipes = []
+      this.recipesLoaded = false
+      this.getAllRecipies()
+    })
 
     this.getAllRecipies()
   }
@@ -38,11 +48,19 @@ export class RecipiesListComponent implements OnInit {
     .subscribe({
       next: (data) => Object.values(data).forEach((recipe: Recipe) => this.recipes.push(recipe)),
       complete: () => {
+        this.categories = []
         this.recipesLoaded = true
         this.recipes.forEach((recipe) => {
-          recipe.categories.forEach((category) => {
-            if (!this.categories.includes(category)) this.categories.push(category)
-          })
+          if (this.locale == 'bg'){
+            recipe.categories_bg.forEach((category) => {
+              if (!this.categories.includes(category)) this.categories.push(category)
+            })
+          }
+          else{
+            recipe.categories.forEach((category) => {
+              if (!this.categories.includes(category)) this.categories.push(category)
+            })
+          }
         })
       },
       error: (err) => console.log(err)
@@ -55,14 +73,26 @@ export class RecipiesListComponent implements OnInit {
     const recipesSubscription = this.fetchRecipes()
     .subscribe({
       next: (data) => Object.values(data).forEach((recipe: Recipe) => {
-        if (filters.every(i => recipe.categories.includes(i))) this.recipes.push(recipe)
+        if (this.locale == 'bg'){
+          if (filters.every(i => recipe.categories_bg.includes(i))) this.recipes.push(recipe)
+        }
+        else{
+          if (filters.every(i => recipe.categories.includes(i))) this.recipes.push(recipe)
+        }
       }),
       complete: () => {
         this.recipesLoaded = true
         this.recipes.forEach((recipe) => {
-          recipe.categories.forEach((category) => {
-            if (!this.categories.includes(category)) this.categories.push(category)
-          })
+          if (this.locale == 'bg'){
+            recipe.categories_bg.forEach((category) => {
+              if (!this.categories.includes(category)) this.categories.push(category)
+            })
+          }
+          else{
+            recipe.categories.forEach((category) => {
+              if (!this.categories.includes(category)) this.categories.push(category)
+            })
+          }
         })
       },
       error: (err) => console.log(err)

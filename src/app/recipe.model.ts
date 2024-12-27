@@ -8,6 +8,7 @@ export class Recipe {
         public ingredients: string[],
         public steps: string[],
         public categories: string[],
+        public categories_bg: string[],
         public photos: string[]
     ) {}
 }
