@@ -28,6 +28,8 @@ export class AppComponent implements OnInit {
   next_id: number | null = null
   new_recipe_added: boolean = false
   mobile_menu_opened: boolean = false 
+  locale: string | null = null
+  localeFlag: '🇧🇬' | '🇬🇧' | null = null
 
   new_recipe_form = new FormGroup({
     name: new FormControl(''),
@@ -45,6 +47,18 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
+    const storedLocale = localStorage.getItem('locale')
+    if (storedLocale){
+      this.locale = storedLocale
+      storedLocale == 'bg' ? this.localeFlag = '🇧🇬' : this.localeFlag = '🇬🇧'
+    }
+    else{
+      const docLang = document.documentElement.lang
+      localStorage.setItem('locale', docLang)
+      this.locale = docLang
+      docLang == 'bg' ? this.localeFlag = '🇧🇬' : this.localeFlag = '🇬🇧'
+    }
+
     this.authService.autoLogin()
     const userSubscription = this.authService.user.subscribe({
       next: (user) => {
@@ -69,6 +83,12 @@ export class AppComponent implements OnInit {
       userSubscription.unsubscribe()
       recipesSubscription.unsubscribe()
     })
+  }
+
+  changeLang(lang: string) {
+    localStorage.setItem('locale', lang)
+    this.locale = lang
+    lang == 'bg' ? this.localeFlag = '🇧🇬' : this.localeFlag = '🇬🇧'
   }
 
   onLogout() {

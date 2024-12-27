@@ -17,12 +17,15 @@ export class DetailedRecipeComponent implements OnInit{
   constructor(private route: ActivatedRoute, private destroyRef: DestroyRef, private http: HttpClient) {}
 
   currentRecipe: Recipe | null | 'not_found' = null
+  locale: string | null = null
 
   private fetchRecipe() {
     return this.http.get<Observable<Recipe>>('https://recipe-book-406c3-default-rtdb.europe-west1.firebasedatabase.app/recipes.json')
   }
 
   ngOnInit() {
+    this.locale = localStorage.getItem('locale')
+
     const recipeSubscription = this.route.paramMap.subscribe({
       next: (params) => {
         const recipeFetch = this.fetchRecipe().subscribe({

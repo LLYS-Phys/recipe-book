@@ -1,13 +1,34 @@
 <header>
-    <a [routerLink]="['/']"><mat-icon>soup_kitchen</mat-icon>Home</a>
+    @if (locale == 'bg'){
+        <a [routerLink]="['/']"><mat-icon>soup_kitchen</mat-icon>Начална страница</a>
+    }
+    @else {
+        <a [routerLink]="['/']"><mat-icon>soup_kitchen</mat-icon>Home</a>
+    }
     <section class="navigation desktop">
+        <div class="dropdown">
+            <button class="dropbtn">{{ localeFlag }}</button>
+            <div class="dropdown-content">
+                @if (locale == 'en') {
+                    <a (click)="changeLang('bg')">🇧🇬</a>
+                }
+                @else {
+                    <a (click)="changeLang('en')">🇬🇧</a>
+                }
+            </div>
+        </div>
         @if (isAuthenticated) {
             <a (click)="openModal()"><mat-icon>add</mat-icon>Add new recipe</a>
             <a [routerLink]="['auth/admin']">Admin Panel</a>
             <a [routerLink]="['/']" (click)="onLogout()">Logout</a>
         }
         @else {
-            <a [routerLink]="['/auth/login']">Login</a>
+            @if (locale == 'bg'){
+                <a [routerLink]="['/auth/login']">Вход</a>
+            }
+            @else {
+                <a [routerLink]="['/auth/login']">Login</a>
+            }
         }
     </section>
     <button class="mobile-menu" mat-fab aria-label="Mobile menu toggle" (click)="toggleMobileMenu($event)">
@@ -21,7 +42,12 @@
         <a [routerLink]="['/']" (click)="onLogout()">Logout</a>
     }
     @else {
-        <a [routerLink]="['/auth/login']">Login</a>
+        @if (locale == 'bg'){
+            <a [routerLink]="['/auth/login']">Вход</a>
+        }
+        @else {
+            <a [routerLink]="['/auth/login']">Login</a>
+        }
     }
 </div>
 @if (isAuthenticated) {

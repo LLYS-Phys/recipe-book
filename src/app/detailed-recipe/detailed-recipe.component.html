@@ -26,23 +26,45 @@
         <section class="basic-information">
             <div class="entry preparation_time">
                 <mat-icon>timer</mat-icon>
-                <h2>Preparation</h2>
-                <h3>{{ currentRecipe.time_preparation }} minutes</h3>
+                @if (locale == 'bg') {
+                    <h2>Подготовка</h2>
+                    <h3>{{ currentRecipe.time_preparation }} минути</h3>
+                }
+                @else {
+                    <h2>Preparation</h2>
+                    <h3>{{ currentRecipe.time_preparation }} minutes</h3>
+                }
             </div>
             <div class="entry cooking_time">
                 <mat-icon>outdoor_grill</mat-icon>
-                <h2>Cooking</h2>
-                <h3>{{ currentRecipe.time_cooking }} minutes</h3>
+                @if (locale == 'bg') {
+                    <h2>Готвене</h2>
+                    <h3>{{ currentRecipe.time_cooking }} минути</h3>
+                }
+                @else {
+                    <h2>Cooking</h2>
+                    <h3>{{ currentRecipe.time_cooking }} minutes</h3>
+                }
             </div>
             <div class="entry portions">
                 <mat-icon>restaurant_menu</mat-icon>
-                <h2>Portions</h2>
+                @if (locale == 'bg') {
+                    <h2>Порции</h2>
+                }
+                @else {
+                    <h2>Portions</h2>
+                }
                 <h3>{{ currentRecipe.portions_count }}</h3>
             </div>
         </section>
         <section class="ingredients section">
             <div class="header">
-                Products Needed
+                @if (locale == 'bg') {
+                    Необходими продукти
+                }
+                @else {
+                    Products Needed
+                }
             </div>
             <ul>
                 @for (ingredient of currentRecipe.ingredients; track ingredient) {
@@ -52,7 +74,12 @@
         </section>
         <section class="steps section">
             <div class="header">
-                Steps
+                @if (locale == 'bg') {
+                    Стъпки
+                }
+                @else {
+                    Steps
+                }
             </div>
             <ol>
                 @for (step of currentRecipe.steps; track step) {
