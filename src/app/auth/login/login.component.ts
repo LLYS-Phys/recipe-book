@@ -30,6 +30,7 @@ export class LoginComponent implements OnInit{
   errorMessage = signal('');
   hide = signal(true);
   isAuthenticated = false
+  locale: string | null = null
 
   form = new FormGroup({
     email: new FormControl('', {
@@ -41,6 +42,10 @@ export class LoginComponent implements OnInit{
   })
 
   ngOnInit() {
+    this.locale = localStorage.getItem('locale')
+    document.querySelector("header")?.addEventListener("click", () => this.locale = localStorage.getItem('locale'))
+    document.querySelector(".mobile-menu-list")?.addEventListener("click", () => this.locale = localStorage.getItem('locale'))
+
     const subscription = this.form.valueChanges.pipe(debounceTime(500)).subscribe({
       next: value => {
         window.localStorage.setItem('saved-login-form', JSON.stringify({email: value.email}))
@@ -80,9 +85,9 @@ export class LoginComponent implements OnInit{
 
   updateErrorMessage() {
     if (this.form.controls.email.hasError('required')) {
-      this.errorMessage.set('Трябва да въведете email');
+      this.errorMessage.set('You have to enter an email address!');
     } else if (this.form.controls.email.hasError('email')) {
-      this.errorMessage.set('Невалиден email');
+      this.errorMessage.set('Invalid email address');
     } else {
       this.errorMessage.set('');
     }

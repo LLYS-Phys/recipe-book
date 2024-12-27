@@ -1,12 +1,12 @@
-<h2>Тази страница е само за администратори, моля въведете данните си!</h2>
-<p>Ако не сте администратор, моля върнете се към 
-    <a [routerLink]="['/']" routerLinkActive="router-link-active">Началната страница</a>
+<h2>This page is for administrators, please enter your credentials!</h2>
+<p>If you are not an administartor, please go back to the  
+    <a [routerLink]="['/']" routerLinkActive="router-link-active">Home page</a>
     .
 </p>
 
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <mat-form-field class="formField">
-        <mat-label>Въведете email</mat-label>
+        <mat-label>Enter email address</mat-label>
         <input
             matInput
             placeholder="pat@example.com"
@@ -21,7 +21,7 @@
         }
     </mat-form-field>
     <mat-form-field>
-        <mat-label>Въведете парола</mat-label>
+        <mat-label>Enter password</mat-label>
         <input 
             matInput 
             [type]="hide() ? 'password' : 'text'"
@@ -42,7 +42,7 @@
     </mat-form-field>
     <div class="actions">
         <button mat-stroked-button>
-            <span>Вход</span>
+            <span>Login</span>
             <mat-icon iconPositionEnd>arrow_right_alt</mat-icon>
         </button>
     </div>
