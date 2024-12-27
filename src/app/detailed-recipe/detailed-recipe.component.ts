@@ -25,6 +25,8 @@ export class DetailedRecipeComponent implements OnInit{
 
   ngOnInit() {
     this.locale = localStorage.getItem('locale')
+    document.querySelector("header")?.addEventListener("click", () => this.locale = localStorage.getItem('locale'))
+    document.querySelector(".mobile-menu-list")?.addEventListener("click", () => this.locale = localStorage.getItem('locale'))
 
     const recipeSubscription = this.route.paramMap.subscribe({
       next: (params) => {

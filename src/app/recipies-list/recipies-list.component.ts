@@ -19,12 +19,17 @@ export class RecipiesListComponent implements OnInit {
   recipesLoaded: boolean = false
   categories: string[] = []
   filters: string[] = []
+  locale: string | null = null
 
   private fetchRecipes() {
     return this.http.get<Observable<Recipe>>('https://recipe-book-406c3-default-rtdb.europe-west1.firebasedatabase.app/recipes.json')
   }
 
   ngOnInit() {
+    this.locale = localStorage.getItem('locale')
+    document.querySelector("header")?.addEventListener("click", () => this.locale = localStorage.getItem('locale'))
+    document.querySelector(".mobile-menu-list")?.addEventListener("click", () => this.locale = localStorage.getItem('locale'))
+
     this.getAllRecipies()
   }
 

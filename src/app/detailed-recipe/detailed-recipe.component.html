@@ -17,7 +17,12 @@
     </div>
 }
 @else if (currentRecipe == 'not_found') {
-    Recipe not found!
+    @if (locale == 'bg') {
+        <h1 class="recipe-not-found">Рецептата не е намерена!</h1>
+    }
+    @else{
+        <h1>Recipe not found!</h1>
+    }
 }
 @else {
     <section class="recipe">

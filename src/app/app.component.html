@@ -36,6 +36,14 @@
     </button>
 </header>
 <div class="mobile-menu-list" [ngClass]="mobile_menu_opened ? 'active' : ''">
+    <div> 
+        @if (locale == 'en') {
+            <a (click)="changeLang('bg')">Changle language to: 🇧🇬</a>
+        }
+        @else {
+            <a (click)="changeLang('en')">Смени езика на: 🇬🇧</a>
+        }
+    </div>
     @if (isAuthenticated) {
         <a (click)="openModal()"><mat-icon>add</mat-icon>Add new recipe</a>
         <a [routerLink]="['auth/admin']">Admin Panel</a>
