@@ -10,12 +10,11 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { merge } from 'rxjs';
-import { AdminComponent } from "../admin/admin.component";
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, MatButton, MatIcon, RouterLink, MatFormFieldModule, MatInputModule, AdminComponent],
+  imports: [ReactiveFormsModule, MatButton, MatIcon, RouterLink, MatFormFieldModule, MatInputModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -54,7 +53,7 @@ export class LoginComponent implements OnInit{
     const userSubscription = this.authService.user.subscribe({
       next: (user) => {
         this.isAuthenticated = !!user
-        if (this.isAuthenticated) window.location.replace("/auth/admin")
+        if (this.isAuthenticated) window.location.replace("/")
       }
     })
 
@@ -77,7 +76,7 @@ export class LoginComponent implements OnInit{
       next: (resData) => {
         console.log(resData)
         this.form.reset()
-        this.router.navigate(['/auth', 'admin'])
+        this.router.navigate(['/'])
       },
       error: (error) => console.log(error)
     })

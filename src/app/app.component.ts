@@ -143,16 +143,3 @@ export class AppComponent implements OnInit {
     return ids.length ? Math.max(...ids) : 0; // Return the max id, or 0 if no valid ids
   }
 }
-
-// Thinking about data structure:
-// {
-//    "id": "0",
-//    "name": "", 
-//    "time_preparation": "", 
-//    "time_cooking": "", 
-//    "portions_count": "", 
-//    "ingredients": ["ingredient 1", "ingredient 2"], 
-//    "steps": ["first step", "second step", "third step"], 
-//    "categories": ["category"], 
-//    "photos": ["photo.png"]
-// }

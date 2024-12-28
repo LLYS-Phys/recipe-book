@@ -19,7 +19,6 @@
         </div>
         @if (isAuthenticated) {
             <a (click)="openModal()"><mat-icon>add</mat-icon>Add new recipe</a>
-            <a [routerLink]="['auth/admin']">Admin Panel</a>
             <a [routerLink]="['/']" (click)="onLogout()">Logout</a>
         }
         @else {
@@ -46,7 +45,6 @@
     </div>
     @if (isAuthenticated) {
         <a (click)="openModal()"><mat-icon>add</mat-icon>Add new recipe</a>
-        <a [routerLink]="['auth/admin']">Admin Panel</a>
         <a [routerLink]="['/']" (click)="onLogout()">Logout</a>
     }
     @else {
