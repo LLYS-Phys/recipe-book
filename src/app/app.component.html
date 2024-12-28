@@ -1,9 +1,9 @@
 <header>
     @if (locale == 'bg'){
-        <a [routerLink]="['/']"><mat-icon>soup_kitchen</mat-icon>Начална страница</a>
+        <a [routerLink]="['/']" class="home-link"><img src="favicon.png"/>Начална страница</a>
     }
     @else {
-        <a [routerLink]="['/']"><mat-icon>soup_kitchen</mat-icon>Home</a>
+        <a [routerLink]="['/']" class="home-link"><img src="favicon.png"/> Home</a>
     }
     <section class="navigation desktop">
         <div class="dropdown">
