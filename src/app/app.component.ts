@@ -90,6 +90,7 @@ export class AppComponent implements OnInit {
     localStorage.setItem('locale', lang)
     this.locale = lang
     lang == 'bg' ? this.localeFlag = '🇧🇬' : this.localeFlag = '🇬🇧'
+    window.location.reload()
   }
 
   onLogout() {
