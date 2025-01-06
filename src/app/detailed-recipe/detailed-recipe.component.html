@@ -92,5 +92,15 @@
                 }
             </ol>
         </section>
+        <section class="original">
+            <a href="{{ currentRecipe.original }}" target="_blank">
+                @if (locale == 'bg') {
+                    Линк към оригиналната рецепта
+                }
+                @else {
+                    Original recipe link
+                }
+            </a>
+        </section>
     </section>
 }

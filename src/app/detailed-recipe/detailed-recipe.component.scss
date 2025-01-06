@@ -73,6 +73,20 @@
         .steps{
             margin-bottom: 1rem;
         }
+        .original{
+            padding: 2rem 0.5rem;
+            font-size: 1.25rem;
+            a{
+                text-decoration: none;
+                color: black;
+                background: linear-gradient(currentColor 0 0) bottom left / var(--underline-width, 0%) 0.15rem no-repeat;
+                transition: background-size 0.5s;
+                font-weight: 500;
+                &:hover {
+                    --underline-width: 100%;
+                }
+            }
+        }
     }
     .loader-container{
         position: absolute;
