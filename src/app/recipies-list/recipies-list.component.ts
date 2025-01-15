@@ -20,6 +20,7 @@ export class RecipiesListComponent implements OnInit {
   categories: string[] = []
   filters: string[] = []
   locale: string | null = null
+  initialRecipes: Observable<Observable<Recipe>> | null = null
 
   private fetchRecipes() {
     return this.http.get<Observable<Recipe>>('https://recipe-book-406c3-default-rtdb.europe-west1.firebasedatabase.app/recipes.json')
@@ -39,12 +40,12 @@ export class RecipiesListComponent implements OnInit {
       this.recipesLoaded = false
       this.getAllRecipies()
     })
-
+    this.initialRecipes = this.fetchRecipes()
     this.getAllRecipies()
   }
 
   private getAllRecipies() {
-    const recipesSubscription = this.fetchRecipes()
+    const recipesSubscription = this.initialRecipes!
     .subscribe({
       next: (data) => Object.values(data).forEach((recipe: Recipe) => this.recipes.push(recipe)),
       complete: () => {
@@ -70,7 +71,7 @@ export class RecipiesListComponent implements OnInit {
   }
 
   private getFilteredRecipies(filters: string[]) {
-    const recipesSubscription = this.fetchRecipes()
+    const recipesSubscription = this.initialRecipes!
     .subscribe({
       next: (data) => Object.values(data).forEach((recipe: Recipe) => {
         if (this.locale == 'bg'){
