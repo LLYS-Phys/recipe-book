@@ -6,11 +6,12 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { Location } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-recipies-list',
   standalone: true,
-  imports: [RouterLink, CommonModule, MatButtonModule],
+  imports: [RouterLink, CommonModule, MatButtonModule, MatIconModule],
   templateUrl: './recipies-list.component.html',
   styleUrl: './recipies-list.component.scss'
 })
@@ -116,5 +117,10 @@ export class RecipiesListComponent implements OnInit {
   setParameters() {
     this.recipesLoaded = false
     this.filters.length == 0 ? this.getAllRecipies() : this.getFilteredRecipies(this.filters)
+  }
+
+  randomRecipe() {
+    const randomRecipe = this.recipes[Math.floor(Math.random() * this.recipes.length)]
+    this.router.navigate(['/recipe', randomRecipe.id])
   }
 }

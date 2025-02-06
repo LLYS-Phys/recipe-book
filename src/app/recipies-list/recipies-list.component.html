@@ -17,6 +17,15 @@
     </div>
 }
 @else {
+    <button mat-fab extended class="random-recipe" (click)="randomRecipe()">
+        <mat-icon>soup_kitchen</mat-icon>
+        @if (locale == 'bg') {
+            Зареди случайна рецепта
+        }
+        @else {
+            Get a random recipe
+        }
+    </button>
     <div class="categories">
         @if (locale == 'bg') {
             <h2>Филтрирай по категория:</h2>
