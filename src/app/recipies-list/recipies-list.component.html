@@ -24,8 +24,8 @@
         @else {
             <h2>Filter by category:</h2>
         }
-        @for (category of categories.sort(); track category){
-            <button mat-flat-button (click)="applyFilter(category)" [ngClass]="filters.includes(category) ? 'active' : ''">{{ category }}</button>
+        @for (category of categories.sort(); track category.key){
+            <button mat-flat-button (click)="applyFilter(category.key)" [ngClass]="filters.includes(category.key) ? 'active' : ''">{{ category.wording.toUpperCase() }}</button>
         }
     </div>
     @for (recipe of recipes; track recipe.id){
