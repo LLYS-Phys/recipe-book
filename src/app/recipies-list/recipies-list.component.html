@@ -37,6 +37,10 @@
             <button mat-flat-button (click)="applyFilter(category.key)" [ngClass]="filters.includes(category.key) ? 'active' : ''">{{ category.wording.toUpperCase() }}</button>
         }
     </div>
+    <mat-form-field class="searchbar">
+        <input matInput type="text" (input)="search($event)" [placeholder]="searchbarPlaceholder">
+        <mat-icon>search</mat-icon>
+    </mat-form-field>
     @for (recipe of recipes; track recipe.id){
         <a class="recipe" [routerLink]="['/recipe', recipe.id]">
             <h3>{{ recipe.name }}</h3>

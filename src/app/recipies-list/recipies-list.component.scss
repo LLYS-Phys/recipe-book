@@ -8,6 +8,20 @@
         position: absolute;
         right: 4rem;
     }
+    .searchbar {
+        position: absolute;
+        left: 4rem;
+        width: 20%;
+        input{
+            width: 90%;
+        }
+        mat-icon{
+            position: absolute;
+            right: -0.5rem;
+            top: 33%;
+            width: 10%;
+        }
+    }
     .categories{
         width: 100%;
         margin: 1rem 0;
@@ -89,6 +103,20 @@
         .random-recipe {
             position: relative;
             right: 0;
+        }
+        .searchbar {
+            position: relative;
+            left: 0;
+            width: 100%;
+            input{
+                width: 90%;
+            }
+            mat-icon{
+                position: absolute;
+                right: -0.5rem;
+                top: 33%;
+                width: 10%;
+            }
         }
         .categories{
             padding: 0;

@@ -7,11 +7,13 @@ import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { Location } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
+import { MatFormField } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
 
 @Component({
   selector: 'app-recipies-list',
   standalone: true,
-  imports: [RouterLink, CommonModule, MatButtonModule, MatIconModule],
+  imports: [RouterLink, CommonModule, MatButtonModule, MatIconModule, MatFormField, MatInput],
   templateUrl: './recipies-list.component.html',
   styleUrl: './recipies-list.component.scss'
 })
@@ -26,6 +28,7 @@ export class RecipiesListComponent implements OnInit {
   locale: string | null = null
   initialRecipes: Recipe[] = []
   tempFilter: string | null = null
+  searchbarPlaceholder: string = "Search for a recipe..."
 
   private fetchRecipes() {
     return this.http.get<Observable<Recipe>>('https://recipe-book-406c3-default-rtdb.europe-west1.firebasedatabase.app/recipes.json')
@@ -66,6 +69,7 @@ export class RecipiesListComponent implements OnInit {
             
               // Update the wording only if we're in the 'bg' locale
               if (this.locale === 'bg') {
+                this.searchbarPlaceholder = "Потърсете рецепта..."
                 this.categories.forEach((category) => {
                   const index = recipe.categories.indexOf(category.key);
                   if (index !== -1) category.wording = recipe.categories_bg[index];
@@ -123,4 +127,12 @@ export class RecipiesListComponent implements OnInit {
     const randomRecipe = this.recipes[Math.floor(Math.random() * this.recipes.length)]
     this.router.navigate(['/recipe', randomRecipe.id])
   }
+
+  search(event: Event) {
+    let input = (event.target as HTMLInputElement).value.trim();
+    this.recipes = input == "" 
+      ? this.initialRecipes 
+      : this.initialRecipes.filter((recipe) => input.toLowerCase().split(/\s+/).every((word) => recipe.name.toLowerCase().includes(word)) )
+  }
+  
 }
