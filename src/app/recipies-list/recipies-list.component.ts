@@ -108,6 +108,7 @@ export class RecipiesListComponent implements OnInit {
   }
 
   applyFilter(category: string){
+    (document.querySelector(".searchbar input") as HTMLInputElement).value = ""
     this.filters.includes(category) ? this.filters = this.filters.filter(item => item !== category) : this.filters.push(category);
     if (this.filters.length > 0) {
       this.router.navigate([''], { queryParams: { filter: this.filters.join(',') } });
@@ -129,6 +130,7 @@ export class RecipiesListComponent implements OnInit {
   }
 
   search(event: Event) {
+    this.filters = []
     let input = (event.target as HTMLInputElement).value.trim();
     this.recipes = input == "" 
       ? this.initialRecipes 
